@@ -2,12 +2,15 @@ from django.contrib import admin
 from django.urls import path
 
 from django.contrib.auth import views as auth_views
+from solo.admin import SingletonModelAdmin
+
 from webapp import views as our_views
 
 app_name = "webapp"
 
 urlpatterns = [
     path('', our_views.ListDevices.as_view(), name='home'),
+    path('settings/', our_views.UpdateSettings.as_view(), name='settings'),
 
     path('device/create/', our_views.CreateDevice.as_view(), name='create-device'),
     path('device/<int:pk>/', our_views.UpdateDevice.as_view(), name='update-device'),

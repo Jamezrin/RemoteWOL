@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 from macaddress.fields import MACAddressField
+from solo.models import SingletonModel
 
 
 class Device(models.Model):
@@ -20,7 +21,11 @@ class Device(models.Model):
         return self.name
 
 
-class Global(models.Model):
-    listener_address = models.GenericIPAddressField()
-    listener_port = models.SmallIntegerField()
-    sent_packets = models.SmallIntegerField()
+class GeneralSettings(SingletonModel):
+    listener_address = models.GenericIPAddressField(default="0.0.0.0")
+    listener_port = models.SmallIntegerField(default=9)
+    packet_count = models.SmallIntegerField(default=3)
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse('webapp:settings')

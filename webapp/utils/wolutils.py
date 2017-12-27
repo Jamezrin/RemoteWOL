@@ -5,10 +5,12 @@ from macaddress import format_mac
 from netaddr import mac_bare
 
 
-def wake_device(device):
+def wake_device(device, times=1):
     bare_mac = format_mac(device.mac, mac_bare)
     packet = binascii.unhexlify('f' * 12 + (bare_mac * 16) + device.secret)
-    forward_packet(packet, (device.target_address, device.target_port))
+
+    for _ in range(times):
+        forward_packet(packet, (device.target_address, device.target_port))
 
 
 def forward_packet(packet, address):

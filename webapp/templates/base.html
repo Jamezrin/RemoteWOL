@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block title %}WolRtk{% endblock %}</title>
+        <title>{% block title %}RemoteWOL{% endblock %}</title>
 
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
@@ -15,7 +15,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-            <a class="navbar-brand" href="{% url 'webapp:home' %}">WolRtk</a>
+            <a class="navbar-brand" href="{% url 'webapp:home' %}">RemoteWOL</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,10 +26,13 @@
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
+                {% block navbar_right %}
+                {% endblock %}
                 {% if user.is_authenticated %}
-                    {% block navbar_right %}
-                    {% endblock %}
                     <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/Jamezrin/RemoteWOL"><i class="fab fa-github"></i></a>
+                    </li>
+                    <li>
                         <a class="nav-link" href="{% url 'webapp:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                 {% endif %}

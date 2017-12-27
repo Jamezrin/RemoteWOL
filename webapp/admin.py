@@ -1,7 +1,9 @@
 from django.contrib import admin
-from webapp.models import Device, Global
+from solo.admin import SingletonModelAdmin
+
+from webapp.models import Device, GeneralSettings
 
 
-admin.site.register(Global)
+admin.site.register(GeneralSettings, SingletonModelAdmin)
 admin.site.register(Device)
 

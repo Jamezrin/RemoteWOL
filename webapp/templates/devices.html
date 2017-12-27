@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
+{% load solo_tags %}
+
 {% block navbar_left %}
     <li class="nav-item">
         <a class="nav-link" href="{% url 'webapp:create-device' %}"><i class="fas fa-plus"></i> Create Device</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'webapp:settings'%}"><i class="fas fa-cogs"></i> Settings</a>
     </li>
 {% endblock %}
 

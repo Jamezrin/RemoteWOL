@@ -7,10 +7,12 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.views.generic import View, ListView, DetailView
+from solo.models import SingletonModel
+
 from webapp.utils import wolutils
 
 from webapp import urls
-from webapp.models import Device
+from webapp.models import Device, GeneralSettings
 
 
 class ListDevices(LoginRequiredMixin, ListView):
@@ -33,6 +35,15 @@ class UpdateDevice(LoginRequiredMixin, UpdateView):
     fields = ['name', 'mac', 'secret', 'description', 'target_address', 'target_port', 'listener']
 
 
+class UpdateSettings(LoginRequiredMixin, UpdateView):
+    template_name = 'settings_form.html'
+    model = GeneralSettings
+    fields = ['listener_address', 'listener_port', 'packet_count']
+
+    def get_object(self, queryset=None):
+        return GeneralSettings.get_solo()
+
+
 @login_required
 def delete_device(request, device_id):
     device = get_object_or_404(Device, pk=device_id)
@@ -45,7 +56,7 @@ def delete_device(request, device_id):
 def wake_device(request, device_id):
     device = get_object_or_404(Device, pk=device_id)
     print("Waking up device: " + str(device))
-    wolutils.wake_device(device)
+    wolutils.wake_device(device, GeneralSettings.get_solo().packet_count)
 
     return redirect('webapp:home')
 

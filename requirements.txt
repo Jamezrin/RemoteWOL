@@ -1,3 +1,4 @@
-netaddr
 Django==2.0
+netaddr
 django-macaddress
+git+https://github.com/lazybird/django-solo.git@c55cbd162b49690770565e32d5dc8bdb33846b55
