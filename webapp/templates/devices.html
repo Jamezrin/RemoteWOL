@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block navbar_left %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'webapp:create-device' %}"><i class="fas fa-plus"></i> Create Device</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    {% if object_list %}
+        <ul class="list-group">
+            {% for device in object_list %}
+                <li class="list-group-item">
+                    <a href="{% url 'webapp:update-device' device.id %}">
+                        {{ device.name }}
+                    </a>
+                    <div class="float-right btn-group">
+                        <a class="btn" href="{% url 'webapp:wake-device' device.id %}"><i class="fas fa-power-off"></i></a>
+                        <a class="btn" href="{% url 'webapp:delete-device' device.id %}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>You don't have any devices, create a new one!</h3>
+    {% endif %}
+{% endblock %}
