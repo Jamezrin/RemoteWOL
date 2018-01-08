@@ -14,9 +14,6 @@ class Device(models.Model):
     target_port = models.SmallIntegerField(default=9)
     listener = models.BooleanField(default=False)
 
-    def get_absolute_url(self):
-        return reverse('webapp:update-device', kwargs={'pk': self.pk})
-
     def __str__(self):
         return self.name
 
@@ -25,7 +22,4 @@ class GeneralSettings(SingletonModel):
     listener_address = models.GenericIPAddressField(default="0.0.0.0")
     listener_port = models.SmallIntegerField(default=9)
     packet_count = models.SmallIntegerField(default=3)
-
-    @staticmethod
-    def get_absolute_url():
-        return reverse('webapp:settings')
+    enforce_secret = models.BooleanField(default=True)

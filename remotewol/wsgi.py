@@ -1,5 +1,5 @@
 """
-WSGI config for wolrmt project.
+WSGI config for RemoteWOL project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
